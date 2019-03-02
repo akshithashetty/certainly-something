@@ -343,6 +343,7 @@ export const parse = async (der) => {
       templateMajorVersion: mape.applicationPolicy.templateMajorVersion.value,
       };
   }
+  
   // determine which extensions weren't supported
   let unsupportedExtensions = [];
   x509.extensions.forEach(ext => {
