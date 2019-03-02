@@ -371,6 +371,20 @@
             {{/each}}
           {{/if}}
 
+          {{! Microsoft Application Policy Extention }}
+          {{#if this.ext.mape}}
+            <div class="panel-section-subheader">
+              <span>
+                {{#if this.ext.mape.critical}}<img class="critical" alt="critical extension" title="This extension has been marked as critical, meaning that clients must reject the certificate if they don't understand it." src="../icons/critical.svg">{{/if~}}
+                Microsoft Application Policy Extension
+              </span>
+            </div>
+            <div class="panel-list-item">
+              <div class="text">Major Version</div>
+              <div class="text breakable">{{ this.ext.mape.applicationPolicy.parsedValue }}</div>
+            </div>
+          {{/if}}
+
           {{! Unsupported extensions }}
           {{#if (truthy this.unsupportedExtensions)}}
             <div class="panel-section-subheader">

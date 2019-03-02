@@ -59,6 +59,7 @@ const parseSubsidiary = (distinguishedNames) => {
 export const parse = async (der) => {
   const supportedExtensions = [
     '1.3.6.1.4.1.11129.2.4.2',  // embedded scts
+    '1.3.6.1.4.1.311.21.10',    // Microsft Application Policies Extension
     '1.3.6.1.5.5.7.1.1',        // authority info access
     '1.3.6.1.5.5.7.1.24',       // ocsp stapling
     '2.5.29.14',                // subject key identifier
@@ -334,7 +335,14 @@ export const parse = async (der) => {
     critical: criticalExtensions.includes('2.5.29.32'),
     policies: cp,
   }
-
+  // get the Microsoft Application Policy Extension
+  let mape = { applicationPolicy: getX509Ext(x509.extensions, '1.3.6.1.4.1.311.21.10').parsedValue}
+  if (mape.applicationPolicy) {
+    mape = {
+      critical: criticalExtensions.includes('1.3.6.1.4.1.311.21.10'),
+      templateMajorVersion: mape.applicationPolicy.templateMajorVersion.value,
+      };
+  }
   // determine which extensions weren't supported
   let unsupportedExtensions = [];
   x509.extensions.forEach(ext => {
@@ -355,6 +363,7 @@ export const parse = async (der) => {
       cp,
       eKeyUsages,
       keyUsages,
+      mape,
       ocspStaple,
       scts: scts,
       sKID,

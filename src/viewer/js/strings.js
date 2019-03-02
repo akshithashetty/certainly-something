@@ -37,6 +37,12 @@ export const strings = {
         long: 'Embedded Signed Certificate Timestamps',
       }
     },
+    '1.3.6.1.4.1.311.21.10': {
+      name: {
+        short: 'MS App. Policies Extension',
+        long:  'Microsoft Application Policies Extension',
+      }
+    },
     '1.3.6.1.5.5.7.1.1': {
       name: {
         short: undefined,
