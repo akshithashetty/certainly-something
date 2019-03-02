@@ -335,6 +335,7 @@ export const parse = async (der) => {
     critical: criticalExtensions.includes('2.5.29.32'),
     policies: cp,
   }
+  
   // get the Microsoft Application Policy Extension
   let mape = { applicationPolicy: getX509Ext(x509.extensions, '1.3.6.1.4.1.311.21.10').parsedValue}
   if (mape.applicationPolicy) {
@@ -343,7 +344,7 @@ export const parse = async (der) => {
       templateMajorVersion: mape.applicationPolicy.templateMajorVersion.value,
       };
   }
-  
+
   // determine which extensions weren't supported
   let unsupportedExtensions = [];
   x509.extensions.forEach(ext => {
